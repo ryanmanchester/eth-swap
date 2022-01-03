@@ -12,20 +12,24 @@ const NavBar = ({account}) => {
       >
         ETH Swap
           </a>
-        <ul className="navbar-nav px-3 ms-auto">
+        <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
+
           <small className="text-secondary">
           <small id="account">{account}</small>
           </small>
+
           </li>
-          {account ? <img classname="ml-2"
-                          width="30"
-                          height="30"
-                          src={`data:image/png;base64, ${new Identicon(account, 30).toString()}`} />
-                        : <span /> }
         </ul>
     </nav>
   )
 }
+
+//identicon:
+// {account ? <img classname="ml-2"
+//                 width="30"
+//                 height="30"
+//                 src={`data:image/png;base64, ${new Identicon(account, 30).toString()}`} />
+//               : <span /> }
 
 export default NavBar

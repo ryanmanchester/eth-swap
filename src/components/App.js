@@ -43,6 +43,7 @@ class App extends Component {
       const token = new web3.eth.Contract(abi, address)
       this.setState({ token })
       let tokenBalance = await token.methods.balanceOf(this.state.account).call()
+      
       this.setState({tokenBalance: tokenBalance.toString()})
     } else {
       window.alert("Token contract not deployed to detected network")
@@ -57,6 +58,7 @@ class App extends Component {
       window.alert("EthSwap contract not deployed to detected network")
     }
     this.setState({loading: false})
+    console.log(this.state)
   }
 
   async loadWeb3() {

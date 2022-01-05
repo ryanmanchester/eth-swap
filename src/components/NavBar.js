@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Identicon from 'identicon.js';
+import React from 'react';
+//import Identicon from 'identicon.js';
 
 const NavBar = ({account}) => {
   return(

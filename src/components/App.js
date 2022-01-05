@@ -8,19 +8,7 @@ import Main from './Main'
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      account: '',
-      token: {},
-      ethSwap: {},
-      ethBalance: 0,
-      tokenBalance: 0,
-      loading: true
-    }
-  }
-
-   async componentWillMount() {
+  async componentWillMount() {
      await this.loadWeb3()
      await this.loadBlockchainData()
   }
@@ -58,7 +46,6 @@ class App extends Component {
       window.alert("EthSwap contract not deployed to detected network")
     }
     this.setState({loading: false})
-    console.log(this.state)
   }
 
   async loadWeb3() {
@@ -72,12 +59,36 @@ class App extends Component {
     }
   }
 
+  buyTokens = (ethAmount) => {
+    this.setState({ loading: true })
+    this.state.ethSwap.methods.buyTokens()
+                              .send({ value: ethAmount, from: this.state.account})
+                              .on('transactionHash', (hash) => {
+                                this.setState({ loading: false })
+                              })
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      account: '',
+      token: {},
+      ethSwap: {},
+      ethBalance: 0,
+      tokenBalance: 0,
+      loading: true
+    }
+  }
+
   render() {
     let content
     if (this.state.loading) {
       content = <p id="loader" className="text-center">Loading...</p>
     } else {
-      content = <Main ethBalance={this.state.ethBalance} tokenBalance={this.state.tokenBalance} />
+      content = <Main
+                 ethBalance={this.state.ethBalance}
+                 tokenBalance={this.state.tokenBalance}
+                 buyTokens={this.buyTokens}/>
     }
 
     return (

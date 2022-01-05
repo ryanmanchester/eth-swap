@@ -9,11 +9,27 @@ class Main extends Component {
       output: 0
     }
   }
+
+  handleOnChange = (event) => {
+      const ethAmount = event.target.value
+      this.setState({
+        output: ethAmount * 100
+      })
+  }
+
+  handleOnSubmit = (event) => {
+    event.preventDefault()
+    let ethAmount
+    ethAmount = this.input.value.toString()
+    ethAmount = window.web3.utils.toWei(ethAmount, 'Ether')
+    this.props.buyTokens(ethAmount)
+    alert(`You bought ${this.state.output} tokens!`)
+  }
   render() {
     return (
       <div className="card mb-4">
       <div className="card-body">
-      <form className="mb-3">
+      <form className="mb-3" onSubmit={this.handleOnSubmit}>
         <div>
           <label className="float-left"><b>Input</b></label>
           <span className="float-right text-muted">
@@ -23,13 +39,8 @@ class Main extends Component {
         <div className="input-group mb-4">
           <input
             type="text"
-            onChange={(event) => {
-              const ethAmount = event.target.value
-              this.setState({
-                output: ethAmount * 100
-              })
-              console.log(this.state.output)
-            }}
+            onChange={this.handleOnChange}
+            ref={(input) => {this.input = input}}
             className="form-control form-control-lg"
             placeholder="0"
             required />

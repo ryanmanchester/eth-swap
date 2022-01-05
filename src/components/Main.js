@@ -6,7 +6,7 @@ class Main extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentForm: "buy"
+      output: 0
     }
   }
   render() {
@@ -16,11 +16,20 @@ class Main extends Component {
       <form className="mb-3">
         <div>
           <label className="float-left"><b>Input</b></label>
-          <span className="float-right text-muted">Balance</span>
+          <span className="float-right text-muted">
+            Balance: {window.web3.utils.fromWei(this.props.ethBalance, 'Ether')}
+          </span>
         </div>
         <div className="input-group mb-4">
           <input
             type="text"
+            onChange={(event) => {
+              const ethAmount = event.target.value
+              this.setState({
+                output: ethAmount * 100
+              })
+              console.log(this.state.output)
+            }}
             className="form-control form-control-lg"
             placeholder="0"
             required />
@@ -33,14 +42,17 @@ class Main extends Component {
         </div>
         <div>
           <label className="float-left"><b>Output</b></label>
-          <span className="float-right text-muted">Balance</span>
+          <span className="float-right text-muted">
+            Balance: {window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')}
+          </span>
         </div>
         <div className="input-group mb-4">
           <input
             type="text"
             className="form-control form-control-lg"
             placeholder="0"
-            required />
+            value={this.state.output}
+            disabled />
             <div className="input-group-append">
             <div className="input-group-text">
               <img src={tokenLogo} height='32' alt=""/>

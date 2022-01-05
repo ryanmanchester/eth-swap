@@ -6,7 +6,7 @@ class Main extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentForm: 'sell'
+      currentForm: 'buy'
     }
   }
 
@@ -22,9 +22,31 @@ class Main extends Component {
                           sellTokens={this.props.sellTokens}/>
     }
     return (
+      <div id="content" className="mt-3">
+
+       <div className="d-flex justify-content-between mb-3">
+         <button
+             className="btn btn-light"
+             onClick={() => {
+               this.setState({ currentForm: 'buy' })
+             }}
+           >
+           Buy
+         </button>
+         <span className="text-muted">&lt; &nbsp; &gt;</span>
+         <button
+             className="btn btn-light"
+             onClick={() => {
+               this.setState({ currentForm: 'sell' })
+             }}
+           >
+           Sell
+         </button>
+       </div>
       <div className="card mb-4">
       <div className="card-body">
         {content}
+      </div>
       </div>
       </div>
     );

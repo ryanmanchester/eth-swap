@@ -23,8 +23,8 @@ class SellForm extends Component {
     tokenAmount = this.input.value.toString() //Using the ref property of the input to get user input
     tokenAmount = window.web3.utils.toWei(tokenAmount, 'Ether')
     this.props.sellTokens(tokenAmount)
-    alert(`You bought ${this.state.output} tokens!`)
   }
+  
   render() {
     return (
       <form className="mb-3" onSubmit={this.handleOnSubmit}>

@@ -5,7 +5,7 @@ import Token from '../abis/Token.json'
 import EthSwap from '../abis/EthSwap.json'
 import NavBar from './NavBar'
 import Main from './Main'
-import BuyForm from './BuyForm'
+
 
 
 class App extends Component {
@@ -71,13 +71,13 @@ class App extends Component {
   }
 
   sellTokens = (tokenAmount) => {
-    this.setState({ loading: true })
-    this.state.ethSwap.methods.sellTokens(tokenAmount)
-                              .send({from: this.state.account})
-                              .on('transactionHash', (hash) => {
-                                this.setState({ loading: false })
-                              })
-  }
+   this.setState({ loading: true })
+   this.state.token.methods.approve(this.state.ethSwap.address, tokenAmount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+     this.state.ethSwap.methods.sellTokens(tokenAmount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+       this.setState({ loading: false })
+     })
+   })
+ }
 
   constructor(props) {
     super(props);
